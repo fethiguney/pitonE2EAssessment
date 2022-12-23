@@ -9,7 +9,6 @@ public class PitonStepDefinitions {
 
     LoginPage loginPage=new LoginPage();
     EventPage eventPage=new EventPage();
-
     DashboardPage dashboardPage=new DashboardPage();
 
 
@@ -57,5 +56,10 @@ public class PitonStepDefinitions {
     public void userClicksCreateEventButtonAndSeesCreateEventForm() {
         dashboardPage.createEventButton.click();
         assertTrue(eventPage.createEventFormTitle.isDisplayed());
+    }
+
+    @And("user sees validation errors messages on the create event page")
+    public void userSeesValidationErrorsMessagesOnTheCreateEventPage() {
+
     }
 }
