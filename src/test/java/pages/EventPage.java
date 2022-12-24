@@ -1,9 +1,12 @@
 package pages;
 
+import io.cucumber.java.ja.前提;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utilities.Driver;
+
+import java.util.List;
 
 public class EventPage {
 
@@ -18,36 +21,51 @@ public class EventPage {
     @FindBy (css = "#name")
     public WebElement eventName;
 
-    @FindBy (css = "#mat-error-0")
+    @FindBy (css = "#mat-error-2")
     public WebElement eventNameFieldIsRequiredText;
 
     @FindBy (css = "#description")
     public WebElement eventDescription;
 
-    @FindBy (css = "#mat-input-2")
+    @FindBy (css = "div#cdk-overlay-1")
     public WebElement eventDate;
 
-    @FindBy (css = "#mat-error-1")
-    public WebElement chooseValidDateText;
-
-    @FindBy (css = "#mat-input-3")
-    public WebElement firstName;
-
-    @FindBy (css = "#mat-error-2")
-    public WebElement participantNameIsRequiredText;
-
-    @FindBy (css = "#mat-input-4")
-    public WebElement lastName;
+    @FindBy (xpath = "//button[@aria-label='Choose month and year']")
+    public WebElement chooseMonthYear;
 
     @FindBy (css = "#mat-error-3")
-    public WebElement participantLastNameIsRequiredText;
+    public WebElement chooseValidDateText;
 
-    @FindBy (css = "#mat-input-5")
-    public WebElement contact;
+    @FindBy (xpath = "//tbody//td[2]")
+    public List<WebElement> firstName;
 
     @FindBy (css = "#mat-error-4")
+    public WebElement participantNameIsRequiredText;
+
+    @FindBy (xpath = "//tbody//td[3]")
+    public List<WebElement> lastName;
+
+    @FindBy (css = "#mat-error-5")
+    public WebElement participantLastNameIsRequiredText;
+
+    @FindBy (xpath = "//tbody//td[4]")
+    public List<WebElement> contact;
+
+    @FindBy (css = "#mat-error-6")
     public WebElement enterEmailOrPhoneNumberText;
+
+    @FindBy (xpath = "//tbody//td[5]")
+    public List<WebElement> delete;
 
     @FindBy (xpath = "//span[text()='Create New Event']")
     public WebElement createNewEventButton;
+
+    @FindBy (xpath = "//span[text()='Add Participant']")
+    public WebElement addParticipantButton;
+
+    @FindBy (css = "p.ng-star-inserted")
+    public WebElement addParticipantMessageText;
+
+    @FindBy (xpath = "//*[text()='Event created successfully']")
+    public WebElement eventCreatedSuccessfullyText;
 }
