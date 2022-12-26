@@ -12,4 +12,7 @@ public class DashboardPage {
 
     @FindBy(css = "span.mat-button-wrapper")
     public WebElement createEventButton;
+
+    @FindBy (xpath = "//mat-icon[text()='edit']")
+    public WebElement editButton;
 }

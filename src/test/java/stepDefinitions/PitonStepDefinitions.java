@@ -2,9 +2,15 @@ package stepDefinitions;
 
 import com.github.javafaker.Faker;
 import io.cucumber.java.en.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import pages.*;
 import utilities.*;
+
+import javax.swing.*;
+
 import static org.junit.Assert.*;
 
 public class PitonStepDefinitions {
@@ -12,6 +18,7 @@ public class PitonStepDefinitions {
     LoginPage loginPage=new LoginPage();
     EventPage eventPage=new EventPage();
     DashboardPage dashboardPage=new DashboardPage();
+    Actions actions=new Actions(Driver.getDriver());
 
 
     @Given("user goes to url")
@@ -86,29 +93,30 @@ public class PitonStepDefinitions {
         eventPage.delete.forEach(WebElement::click);
         assertEquals(eventPage.addParticipantMessageText.getText(), message);
     }
-
-    @And("user fills {string} {string} and {string} fields")
-    public void userFillsAndFields(String eventName, String eventDescription, String eventDate) {
+    @And("user fills {string} {string} and Event Date fields")
+    public void userFillsAndEventDateFields(String eventName, String eventDescription) {
         eventPage.eventName.sendKeys(eventName);
         eventPage.eventDescription.sendKeys(eventDescription);
-        eventPage.eventDate.sendKeys(eventDate);
+        eventPage.eventDate.click();
+        eventPage.chooseDay31.click();
     }
+
     @Then("user fills participants informations for {int} participants and click the Create New Event button")
     public void userFillsParticipantsInformationsForParticipantsAndClickTheCreateNewEventButton(int numParticipants) {
         int numberOfParticipants=numParticipants-1;
         for (int i = 0; i <numberOfParticipants ; i++) {
             eventPage.addParticipantButton.click();
         }
-        System.out.println(eventPage.firstName.size());
 
         for (int i = 0; i <eventPage.firstName.size() ; i++) {
-            eventPage.firstName.get(i).sendKeys(Faker.instance().name().firstName());
+            actions.click(eventPage.firstName.get(i)).sendKeys(Faker.instance().name().firstName()).perform();
         }
         for (int i = 0; i <eventPage.lastName.size() ; i++) {
-            eventPage.lastName.get(i).sendKeys(Faker.instance().name().lastName());
+            actions.click(eventPage.lastName.get(i)).sendKeys(Faker.instance().name().lastName()).perform();
+
         }
         for (int i = 0; i <eventPage.contact.size() ; i++) {
-            eventPage.contact.get(i).sendKeys(Faker.instance().internet().emailAddress());
+            actions.click(eventPage.contact.get(i)).sendKeys(Faker.instance().internet().emailAddress()).perform();
         }
         eventPage.createNewEventButton.click();
     }
@@ -120,5 +128,14 @@ public class PitonStepDefinitions {
 
     }
 
+    @And("user clicks edit event button and checks {string} and {string} whether according to editing event")
+    public void userClicksEditEventButtonAndChecksAndWhetherAccordingToEditingEvent(String expectedEventName, String expectedEventDescription) {
+        dashboardPage.editButton.click();
+        String actualEventName=eventPage.eventName.getAttribute("value");
+        String actualEventDescription=eventPage.eventDescription.getAttribute("value");
+        assertEquals(actualEventName, expectedEventName);
+        assertEquals(actualEventDescription, expectedEventDescription);
 
+
+    }
 }

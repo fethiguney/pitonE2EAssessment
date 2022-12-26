@@ -40,9 +40,22 @@
       Given user goes to url
       When user enter valid username and valid password
       Then user clicks create event button and sees create event form
-      And user fills "<Event Name>" "<Event Description>" and "<Event Date>" fields
+      And user fills "<Event Name>" "<Event Description>" and Event Date fields
       Then user fills participants informations for 10 participants and click the Create New Event button
       Then user should be able to redirect to dashboard page and sees "Event created successfully" message
       Examples:
-        | Event Name   |Event Description   |Event Date|
-        | Welcome 2023 |New Year Celebration|31/12/2022|
+        | Event Name   |Event Description   |
+        | Welcome 2023 |New Year Celebration|
+
+    @EventPageTestCase6
+    Scenario Outline: Test Case 6 User should be able to edit event. When user click
+    the edit button all event fields must be filled according to editing event
+      Given user goes to url
+      When user enter valid username and valid password
+      Then user clicks create event button and sees create event form
+      And user fills "<Event Name>" "<Event Description>" and Event Date fields
+      Then user fills participants informations for 5 participants and click the Create New Event button
+      And user clicks edit event button and checks "<Event Name>" and "<Event Description>" whether according to editing event
+      Examples:
+        | Event Name   |Event Description   |
+        | Welcome 2023 |New Year Celebration|

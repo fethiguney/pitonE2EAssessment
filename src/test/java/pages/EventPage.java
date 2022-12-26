@@ -21,37 +21,37 @@ public class EventPage {
     @FindBy (css = "#name")
     public WebElement eventName;
 
-    @FindBy (css = "#mat-error-2")
+    @FindBy (xpath = "//*[text()='Event name field is required']")
     public WebElement eventNameFieldIsRequiredText;
 
     @FindBy (css = "#description")
     public WebElement eventDescription;
 
-    @FindBy (css = "div#cdk-overlay-1")
+    @FindBy (xpath = "//button[@class='mat-focus-indicator mat-icon-button mat-button-base']")
     public WebElement eventDate;
 
-    @FindBy (xpath = "//button[@aria-label='Choose month and year']")
-    public WebElement chooseMonthYear;
+    @FindBy (xpath = "//div[text()=' 31 ']")
+    public WebElement chooseDay31;
 
-    @FindBy (css = "#mat-error-3")
+    @FindBy (xpath = "//*[text()='Please choose a valid date']")
     public WebElement chooseValidDateText;
 
     @FindBy (xpath = "//tbody//td[2]")
     public List<WebElement> firstName;
 
-    @FindBy (css = "#mat-error-4")
+    @FindBy (xpath = "//*[text()='Participant name is required']")
     public WebElement participantNameIsRequiredText;
 
     @FindBy (xpath = "//tbody//td[3]")
     public List<WebElement> lastName;
 
-    @FindBy (css = "#mat-error-5")
+    @FindBy (xpath = "//*[text()='Participant last name is required']")
     public WebElement participantLastNameIsRequiredText;
 
     @FindBy (xpath = "//tbody//td[4]")
     public List<WebElement> contact;
 
-    @FindBy (css = "#mat-error-6")
+    @FindBy (xpath = "//*[text()='Please enter email or phone number']")
     public WebElement enterEmailOrPhoneNumberText;
 
     @FindBy (xpath = "//tbody//td[5]")
@@ -63,7 +63,7 @@ public class EventPage {
     @FindBy (xpath = "//span[text()='Add Participant']")
     public WebElement addParticipantButton;
 
-    @FindBy (css = "p.ng-star-inserted")
+    @FindBy (xpath = "//*[text()='Please add participant!']")
     public WebElement addParticipantMessageText;
 
     @FindBy (xpath = "//*[text()='Event created successfully']")
