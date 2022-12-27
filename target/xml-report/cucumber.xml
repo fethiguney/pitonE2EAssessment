@@ -1,13 +1,164 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="15.593">
-    <testcase classname="Event Module UI Tests" name="Test Case 6 User should be able to edit event. When user click" time="15.211">
+<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="16" time="152.013">
+    <testcase classname="Dashboard Modul UI Test" name="Test Case 1 – User should view dashboard if authenticated" time="8.326">
         <system-out>
             <![CDATA[Given user goes to url......................................................passed
-When user enter valid username and valid password...........................passed
+When user enters valid username and valid password..........................passed
+Then user sees dashboard page...............................................passed
+]]>
+        </system-out>
+    </testcase>
+    <testcase classname="Dashboard Modul UI Test" name="Test Case 2 – User should redirect to login page if not authenticated" time="4.344">
+        <system-out>
+            <![CDATA[Given user goes to url......................................................passed
+When user enters invalid username and invalid password......................passed
+Then user sees login page header............................................passed
+]]>
+        </system-out>
+    </testcase>
+    <testcase classname="Dashboard Modul UI Test" name="Test Case 3 – User should view list of events if any event created otherwise user should view" time="13.246">
+        <system-out>
+            <![CDATA[Given user goes to url......................................................passed
+When user enters valid username and valid password..........................passed
+Then user views "No registered event has been found!!" notification message.passed
+Then user clicks create event button and sees create event form.............passed
+And user fills "Happy New Year" "Good Bye 2022 Celebration" and Event Date fields.passed
+Then user fills participants informations for 3 participants and click the Create New Event button.passed
+And user redirect to dashboard and views event list.........................passed
+]]>
+        </system-out>
+    </testcase>
+    <testcase classname="Dashboard Modul UI Test" name="Test Case 4 – User should be able navigate edit event when click the edit event button" time="12.609">
+        <system-out>
+            <![CDATA[Given user goes to url......................................................passed
+When user enters valid username and valid password..........................passed
+Then user clicks create event button and sees create event form.............passed
+And user fills "Happy New Year" "Good Bye 2022 Celebration" and Event Date fields.passed
+Then user fills participants informations for 3 participants and click the Create New Event button.passed
+And user redirect to dashboard and views event list.........................passed
+Then user clicks edit event button and views edit event header..............passed
+]]>
+        </system-out>
+    </testcase>
+    <testcase classname="Dashboard Modul UI Test" name="Test Case 5 – User should be able to delete event when click the delete button" time="11.668">
+        <system-out>
+            <![CDATA[Given user goes to url......................................................passed
+When user enters valid username and valid password..........................passed
+Then user clicks create event button and sees create event form.............passed
+And user fills "Happy New Year" "Good Bye 2022 Celebration" and Event Date fields.passed
+Then user fills participants informations for 3 participants and click the Create New Event button.passed
+And user redirect to dashboard and views event list.........................passed
+Then user clicks the delete button to delete event..........................passed
+And user views "No registered event has been found!!" notification message..passed
+]]>
+        </system-out>
+    </testcase>
+    <testcase classname="Dashboard Modul UI Test" name="Test Case 6 – User should be able to view event participants" time="11.599">
+        <system-out>
+            <![CDATA[Given user goes to url......................................................passed
+When user enters valid username and valid password..........................passed
+Then user clicks create event button and sees create event form.............passed
+And user fills "Happy New Year" "Good Bye 2022 Celebration" and Event Date fields.passed
+Then user fills participants informations for 3 participants and click the Create New Event button.passed
+And user redirect to dashboard and views event list.........................passed
+Then user clicks participants button and sees event participants table......passed
+]]>
+        </system-out>
+    </testcase>
+    <testcase classname="Event Module UI Tests" name="Test Case 1 - User should view create event form if" time="5.031">
+        <system-out>
+            <![CDATA[Given user goes to url......................................................passed
+When user enters valid username and valid password..........................passed
+Then user clicks create event button and sees create event form.............passed
+]]>
+        </system-out>
+    </testcase>
+    <testcase classname="Event Module UI Tests" name="Test Case 2 - User should view validation errors" time="4.922">
+        <system-out>
+            <![CDATA[Given user goes to url......................................................passed
+When user enters valid username and valid password..........................passed
+Then user clicks create event button and sees create event form.............passed
+And user clicks the Create event button without fill the event form.........passed
+Then user sees validation errors messages on the create event page..........passed
+]]>
+        </system-out>
+    </testcase>
+    <testcase classname="Event Module UI Tests" name="Test Case 3 - User should be able to add new participant" time="4.986">
+        <system-out>
+            <![CDATA[Given user goes to url......................................................passed
+When user enters valid username and valid password..........................passed
+Then user clicks create event button and sees create event form.............passed
+And user clicks the Add Participant button and sees new participant row.....passed
+]]>
+        </system-out>
+    </testcase>
+    <testcase classname="Event Module UI Tests" name="Test Case 4 - User should view error message if removes all participants" time="5.154">
+        <system-out>
+            <![CDATA[Given user goes to url......................................................passed
+When user enters valid username and valid password..........................passed
+Then user clicks create event button and sees create event form.............passed
+And user clicks the Add Participant button and sees new participant row.....passed
+Then user removes all participants and views "Please add participant!" message.passed
+]]>
+        </system-out>
+    </testcase>
+    <testcase classname="Event Module UI Tests" name="Test Case 5 - User should be able to create new event if fills all required fields" time="21.109">
+        <system-out>
+            <![CDATA[Given user goes to url......................................................passed
+When user enters valid username and valid password..........................passed
+Then user clicks create event button and sees create event form.............passed
+And user fills "Welcome 2023" "New Year Celebration" and Event Date fields..passed
+Then user fills participants informations for 10 participants and click the Create New Event button.passed
+Then user should be able to redirect to dashboard page and sees "Event created successfully" message.passed
+]]>
+        </system-out>
+    </testcase>
+    <testcase classname="Event Module UI Tests" name="Test Case 6 - User should be able to edit event. When user click" time="14.428">
+        <system-out>
+            <![CDATA[Given user goes to url......................................................passed
+When user enters valid username and valid password..........................passed
 Then user clicks create event button and sees create event form.............passed
 And user fills "Welcome 2023" "New Year Celebration" and Event Date fields..passed
 Then user fills participants informations for 5 participants and click the Create New Event button.passed
-And user clicks edit event button and checks "Welcome 2023" and "New Year Celebration" whether according to editing event.passed
+And user clicks edit event button...........................................passed
+Then user checks "Welcome 2023" "New Year Celebration" "31/12/2022" and participants whether according to editing event.passed
+]]>
+        </system-out>
+    </testcase>
+    <testcase classname="Event Module UI Tests" name="Test Case 7 – User should be able to update event if required fields filled" time="19.271">
+        <system-out>
+            <![CDATA[Given user goes to url......................................................passed
+When user enters valid username and valid password..........................passed
+Then user clicks create event button and sees create event form.............passed
+And user fills "Welcome 2023" "New Year Celebration" and Event Date fields..passed
+Then user fills participants informations for 4 participants and click the Create New Event button.passed
+And user clicks edit event button...........................................passed
+Then user updates "Happy New Year Celebration" and delete the third(3) participant and add a new participant.passed
+And user clicks update event button and redirect to dashboard page and sees "Event updated successfully" message.passed
+]]>
+        </system-out>
+    </testcase>
+    <testcase classname="Login Module UI Tests" name="Test Case 1 - User should see login form if not authenticated." time="5.07">
+        <system-out>
+            <![CDATA[Given user goes to url......................................................passed
+When user sees Event Manager Login text.....................................passed
+Then verify form contains username password and login button................passed
+]]>
+        </system-out>
+    </testcase>
+    <testcase classname="Login Module UI Tests" name="Test Case 2 - User should see validation errors" time="4.364">
+        <system-out>
+            <![CDATA[Given user goes to url......................................................passed
+When user click the login button without fill the login form................passed
+Then user sees validation errors messages...................................passed
+]]>
+        </system-out>
+    </testcase>
+    <testcase classname="Login Module UI Tests" name="Test Case 3 - User should navigate to the dashboard" time="5.08">
+        <system-out>
+            <![CDATA[Given user goes to url......................................................passed
+When user enters valid username and valid password..........................passed
+Then user sees welcome message..............................................passed
 ]]>
         </system-out>
     </testcase>

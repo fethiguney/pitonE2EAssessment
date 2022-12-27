@@ -30,6 +30,9 @@ public class EventPage {
     @FindBy (xpath = "//button[@class='mat-focus-indicator mat-icon-button mat-button-base']")
     public WebElement eventDate;
 
+    @FindBy (xpath = "//input[@formcontrolname='date']")
+    public WebElement date;
+
     @FindBy (xpath = "//div[text()=' 31 ']")
     public WebElement chooseDay31;
 
@@ -68,4 +71,15 @@ public class EventPage {
 
     @FindBy (xpath = "//*[text()='Event created successfully']")
     public WebElement eventCreatedSuccessfullyText;
+
+    @FindBy (xpath = "//span[text()='Update Event']")
+    public WebElement updateEventButton;
+
+    @FindBy (xpath = "//*[text()='Event updated successfully']")
+    public WebElement eventUpdatedMessage;
+
+    @FindBy (xpath = "//h1[text()='Edit Event: #1']")
+    public WebElement editEventHeaderText;
+
+
 }

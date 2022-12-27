@@ -11,6 +11,8 @@ import utilities.*;
 
 import javax.swing.*;
 
+import java.sql.ResultSetMetaData;
+
 import static org.junit.Assert.*;
 
 public class PitonStepDefinitions {
@@ -20,6 +22,7 @@ public class PitonStepDefinitions {
     DashboardPage dashboardPage=new DashboardPage();
     Actions actions=new Actions(Driver.getDriver());
 
+    int numberOfParticipants;
 
     @Given("user goes to url")
     public void userGoesToUrl() {
@@ -49,8 +52,8 @@ public class PitonStepDefinitions {
         assertTrue(loginPage.passwordFieldIsRequiredText.isDisplayed());
     }
 
-    @When("user enter valid username and valid password")
-    public void userEnterValidUsernameAndValidPassword() {
+    @When("user enters valid username and valid password")
+    public void userEntersValidUsernameAndValidPassword() {
         loginPage.username.sendKeys(ConfigReader.getProperty("username"));
         loginPage.password.sendKeys(ConfigReader.getProperty("password"));
         loginPage.loginButton.click();
@@ -102,8 +105,9 @@ public class PitonStepDefinitions {
     }
 
     @Then("user fills participants informations for {int} participants and click the Create New Event button")
-    public void userFillsParticipantsInformationsForParticipantsAndClickTheCreateNewEventButton(int numParticipants) {
-        int numberOfParticipants=numParticipants-1;
+    public void userFillsParticipantsInformationsForParticipantsAndClickTheCreateNewEventButton(int numParticipants) throws InterruptedException {
+        numberOfParticipants=numParticipants-1;
+
         for (int i = 0; i <numberOfParticipants ; i++) {
             eventPage.addParticipantButton.click();
         }
@@ -118,7 +122,9 @@ public class PitonStepDefinitions {
         for (int i = 0; i <eventPage.contact.size() ; i++) {
             actions.click(eventPage.contact.get(i)).sendKeys(Faker.instance().internet().emailAddress()).perform();
         }
+        numberOfParticipants=numParticipants;
         eventPage.createNewEventButton.click();
+        Thread.sleep(2000);
     }
 
     @Then("user should be able to redirect to dashboard page and sees {string} message")
@@ -128,14 +134,96 @@ public class PitonStepDefinitions {
 
     }
 
-    @And("user clicks edit event button and checks {string} and {string} whether according to editing event")
-    public void userClicksEditEventButtonAndChecksAndWhetherAccordingToEditingEvent(String expectedEventName, String expectedEventDescription) {
+    @And("user clicks edit event button")
+    public void userClicksEditEventButton() {
+       ReusableMethods.waitForClickablility(dashboardPage.editButton,2);
         dashboardPage.editButton.click();
+    }
+
+    @Then("user checks {string} {string} {string} and participants whether according to editing event")
+    public void userChecksAndParticipantsWhetherAccordingToEditingEvent(String expectedEventName, String expectedEventDescription, String expectedEventDate) {
         String actualEventName=eventPage.eventName.getAttribute("value");
         String actualEventDescription=eventPage.eventDescription.getAttribute("value");
+        String actualEventDate=eventPage.date.getAttribute("value");
+
         assertEquals(actualEventName, expectedEventName);
         assertEquals(actualEventDescription, expectedEventDescription);
+        assertEquals(actualEventDate, expectedEventDate);
 
+        assertEquals(numberOfParticipants, eventPage.firstName.size());
+        assertEquals(numberOfParticipants, eventPage.lastName.size());
+        assertEquals(numberOfParticipants, eventPage.contact.size());
+    }
 
+    @Then("user updates {string} and delete the third\\({int}) participant and add a new participant")
+    public void userUpdatesAndDeleteTheThirdParticipantAndAddANewParticipant(String newEventDescription, int placeOfParticipant) throws InterruptedException {
+        ReusableMethods.waitForVisibility(eventPage.eventDescription, 2);
+        eventPage.eventDescription.clear();
+        eventPage.eventDescription.sendKeys(newEventDescription);
+        Thread.sleep(2000);
+
+        eventPage.delete.get(placeOfParticipant-1).click();
+        ReusableMethods.waitForClickablility(eventPage.addParticipantButton, 2);
+        eventPage.addParticipantButton.click();
+        Thread.sleep(1000);
+
+        actions.click(eventPage.firstName.get(eventPage.firstName.size()-1)).
+                sendKeys(Faker.instance().name().firstName()).perform();
+        actions.click(eventPage.lastName.get(eventPage.lastName.size()-1)).
+                sendKeys(Faker.instance().name().lastName()).perform();
+        actions.click(eventPage.contact.get(eventPage.contact.size()-1)).
+                sendKeys(Faker.instance().internet().emailAddress()).perform();
+
+    }
+
+    @And("user clicks update event button and redirect to dashboard page and sees {string} message")
+    public void userClicksUpdateEventButtonAndRedirectToDashboardPageAndSeesMessage(String eventUpdatedMessage) {
+        eventPage.updateEventButton.click();
+        assertEquals(eventUpdatedMessage, eventPage.eventUpdatedMessage.getText());
+
+    }
+
+    @Then("user sees dashboard page")
+    public void userSeesDashboardPage() {
+        assertTrue(Driver.getDriver().getCurrentUrl().contains(ConfigReader.getProperty("dashboardPage")));
+    }
+
+    @When("user enters invalid username and invalid password")
+    public void userEntersInvalidUsernameAndInvalidPassword() {
+        loginPage.username.sendKeys(ConfigReader.getProperty("invalidUserName"));
+        loginPage.password.sendKeys(ConfigReader.getProperty("invalidPassword"));
+        loginPage.loginButton.click();
+    }
+
+    @Then("user sees login page header")
+    public void userSeesLoginPageHeader() {
+        assertTrue(loginPage.loginHeaderText.isDisplayed());
+    }
+
+    @Then("user views {string} notification message")
+    public void userViewsNotificationMessage(String notificationMessage) {
+        assertEquals(dashboardPage.noRegisteredEventMessageText.getText(), notificationMessage);
+    }
+
+    @And("user redirect to dashboard and views event list")
+    public void userRedirectToDashboardAndViewsEventList() {
+        assertTrue(dashboardPage.eventListHeader.isDisplayed());
+    }
+
+    @Then("user clicks edit event button and views edit event header")
+    public void userClicksEditEventButtonAndViewsEditEventHeader() {
+        dashboardPage.editButton.click();
+        assertTrue(eventPage.editEventHeaderText.isDisplayed());
+    }
+
+    @Then("user clicks the delete button to delete event")
+    public void userClicksTheDeleteButtonToDeleteEvent() {
+        dashboardPage.deleteButton.get(0).click();
+    }
+
+    @Then("user clicks participants button and sees event participants table")
+    public void userClicksParticipantsButtonAndSeesEventParticipantsTable() {
+        dashboardPage.participantsButton.get(0).click();
+        assertTrue(dashboardPage.participantTable.isDisplayed());
     }
 }

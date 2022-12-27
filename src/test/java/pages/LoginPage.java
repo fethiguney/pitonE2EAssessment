@@ -31,4 +31,7 @@ public class LoginPage {
 
     @FindBy (css = "#welcomeUserMessage")
     public WebElement welcomeMessage;
+
+    @FindBy (css = "div.login-header")
+    public WebElement loginHeaderText;
 }
